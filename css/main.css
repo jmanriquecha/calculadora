@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculadora {
+    width: 300px;
+    height: 100vh;
+    max-height: 100vh;
+    background-color: #111;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.displayOperaciones {
+    width: 100%;
+    height: 30%;
+}
+
+.opciones {
+    width: 100%;
+    height: 10%;
+    border-bottom: 1px solid #ccc;
+}
+
+.teclado {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-areas:
+        "c parentecis porcentaje division"
+        "numero7 numero8 numero9 multiplicacion"
+        "numero4 numero5 numero6 resta"
+        "numero1 numero2 numero3 suma"
+        "masmenos numero0 punto igual";
+    gap: 5px;
+    /* Espacio entre las celdas */
+    width: 100%;
+    height: 60%;
+}
+
+.numero0 {
+    grid-area: numero0;
+}
+
+.numero1 {
+    grid-area: numero1;
+}
+
+.numero2 {
+    grid-area: numero2;
+}
+
+.numero3 {
+    grid-area: numero3;
+}
+
+.numero4 {
+    grid-area: numero4;
+}
+
+.numero5 {
+    grid-area: numero5;
+}
+
+.numero6 {
+    grid-area: numero6;
+}
+
+.numero7 {
+    grid-area: numero7;
+}
+
+.numero8 {
+    grid-area: numero8;
+}
+
+.numero9 {
+    grid-area: numero9;
+}
+
+.punto {
+    grid-area: punto;
+}
+
+.c {
+    grid-area: c;
+}
+
+.parentecis {
+    grid-area: parentecis;
+}
+
+.porcentaje {
+    grid-area: porcentaje;
+}
+
+.division {
+    grid-area: division;
+}
+
+.porcentaje {
+    grid-area: porcentaje;
+}
+
+.multiplicacion {
+    grid-area: multiplicacion;
+}
+
+.resta {
+    grid-area: resta;
+}
+
+.suma {
+    grid-area: suma;
+}
+
+.igual {
+    grid-area: igual;
+}
+
+.masmenos {
+    grid-area: masmenos;
+}
+
+.boton-numero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    background-color: gray;
+}
