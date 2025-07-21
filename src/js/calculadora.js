@@ -26,10 +26,10 @@ calculadora.appendChild(displayOperaciones);
  * y mostrar el resultado, a su vez se agregan al
  * div.displayOperaciones
  */
-const operaciones = nuevoElemento("div", "operaciones", "operaciones", "0");
+const operaciones = nuevoElemento("div", "operaciones", "operaciones");
 displayOperaciones.appendChild(operaciones);
 
-const resultado = nuevoElemento("div", "resultado", "resultado", "0");
+const resultado = nuevoElemento("div", "resultado", "resultado");
 displayOperaciones.appendChild(resultado);
 
 // Se agrega el elmento div.opciones a div.calculadora
@@ -142,5 +142,124 @@ function nuevoElemento(elemento, id = "", clase = "", contenido = "") {
     if (clase) miElemento.className = clase;
 
     return miElemento;
+}
+
+// Logica
+let acumulado = [];
+let formarOperacion = "";
+
+clickTeclado(numero0);
+clickTeclado(numero1);
+clickTeclado(numero2);
+clickTeclado(numero3);
+clickTeclado(numero4);
+clickTeclado(numero5);
+clickTeclado(numero6);
+clickTeclado(numero7);
+clickTeclado(numero8);
+clickTeclado(numero9);
+clickTeclado(parentecis);
+clickTeclado(porcentaje);
+clickTeclado(division);
+clickTeclado(multiplicacion);
+clickTeclado(resta);
+clickTeclado(suma);
+clickTeclado(masmenos);
+clickTeclado(punto);
+clickTeclado(igual);
+clickTeclado(c);
+clickTeclado(borrar);
+
+
+function clickTeclado(elemento) {
+    const elementosNoOperables =
+        elemento.id === "c"
+        || elemento.id === "suma"
+        || elemento.id === "multiplicacion"
+        || elemento.id === "resta"
+        || elemento.id === "division"
+        || elemento.id === "porcentaje"
+        || elemento.id === "masmenos"
+        || elemento.id === "parentecis"
+        || elemento.id === "igual"
+        || elemento.id === "borrar";
+
+    // Acciones 
+    elemento.addEventListener("click", function () {
+        // Se valida elementos 
+        if (operaciones.textContent === "") {
+            // Si el div.operaciones esta vacío y se digita . se agregara 0.
+            if (elemento.id === "punto") {
+                acumulado.push(0 + '.');
+                operaciones.textContent = acumulado;
+            }
+
+            if (elemento.id === "suma" ||
+                elemento.id === "resta" ||
+                elemento.id === "multiplicacion" ||
+                elemento.id === "division" ||
+                elemento.id === "porcentaje"
+            ) {
+                console.warn("El formato usado no es válido");
+            }
+        }
+
+        if (elemento.id === "parentecis") {
+            acumulado.push("(");
+            operaciones.textContent = acumulado;
+        }
+
+        if (!elementosNoOperables) {
+            acumulado.push(elemento.textContent);
+        }
+        else {
+            switch (elemento.id) {
+                case "suma":
+                    acumulado.push("+");
+                    break;
+
+                case "resta":
+                    acumulado.push("-");
+                    break;
+
+                case "multiplicacion":
+                    acumulado.push("*");
+                    break;
+
+                case "division":
+                    acumulado.push("/");
+                    break;
+
+                case "porcentaje":
+                    acumulado.push("%");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // 
+
+        formarOperacion = acumulado.join("");
+        operaciones.textContent = formarOperacion;
+        muestraResultado();
+
+
+        // Limpiar display
+        if (elemento.id === "c")
+            limpiarDisplay();
+    });
+}
+
+function limpiarDisplay() {
+    operaciones.textContent = "";
+    resultado.textContent = "";
+    acumulado = [];
+}
+
+function muestraResultado() {
+    let result = math.evaluate(acumulado.join(""));
+    resultado.textContent = result;
 }
 
