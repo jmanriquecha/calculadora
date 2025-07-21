@@ -220,29 +220,31 @@ function clickTeclado(elemento) {
             acumulado.push(elemento.textContent);
         }
         else {
-            switch (elemento.id) {
-                case "suma":
-                    acumulado.push("+");
-                    break;
+            if (acumulado.length !== 0) {
+                switch (elemento.id) {
+                    case "suma":
+                        acumulado.push("+");
+                        break;
 
-                case "resta":
-                    acumulado.push("-");
-                    break;
+                    case "resta":
+                        acumulado.push("-");
+                        break;
 
-                case "multiplicacion":
-                    acumulado.push("*");
-                    break;
+                    case "multiplicacion":
+                        acumulado.push("*");
+                        break;
 
-                case "division":
-                    acumulado.push("/");
-                    break;
+                    case "division":
+                        acumulado.push("/");
+                        break;
 
-                case "porcentaje":
-                    acumulado.push("%");
-                    break;
+                    case "porcentaje":
+                        acumulado.push("%");
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -259,7 +261,10 @@ function clickTeclado(elemento) {
 
         if (elemento.id === "igual") {
             acumulado = [];
-
+            const resultArray = resultado.textContent.split("");
+            acumulado.push(...resultArray);
+            formarOperacion = acumulado.join("");
+            operaciones.textContent = formarOperacion;
         }
 
     });
