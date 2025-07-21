@@ -209,6 +209,13 @@ function clickTeclado(elemento) {
             operaciones.textContent = acumulado;
         }
 
+        if (elemento.id === "borrar") {
+            //code
+            acumulado.pop();
+            formarOperacion = acumulado.join();
+            operaciones.textContent = formarOperacion;
+        }
+
         if (!elementosNoOperables) {
             acumulado.push(elemento.textContent);
         }
