@@ -51,65 +51,35 @@ calculadora.appendChild(teclado);
  * Se crean elementos numéricos y de operaciones
  * y se agregan a div.teclado
  * */
-const numero0 = nuevoElemento("button", "numero0", "numero0 boton-numero", "0");
-teclado.appendChild(numero0);
 
-const numero1 = nuevoElemento("button", "numero1", "numero1 boton-numero", "1");
-teclado.appendChild(numero1);
+const botones = [
+    { id: "numero0", clase: "boton-numero", texto: "0" },
+    { id: "numero1", clase: "boton-numero", texto: "1" },
+    { id: "numero2", clase: "boton-numero", texto: "2" },
+    { id: "numero3", clase: "boton-numero", texto: "3" },
+    { id: "numero4", clase: "boton-numero", texto: "4" },
+    { id: "numero5", clase: "boton-numero", texto: "5" },
+    { id: "numero6", clase: "boton-numero", texto: "6" },
+    { id: "numero7", clase: "boton-numero", texto: "7" },
+    { id: "numero8", clase: "boton-numero", texto: "8" },
+    { id: "numero9", clase: "boton-numero", texto: "9" },
+    { id: "punto", clase: "boton-numero", texto: "." },
+    { id: "c", clase: "boton-numero btn-op", texto: "C" },
+    { id: "parentecis", clase: "boton-numero btn-op", texto: "( )" },
+    { id: "porcentaje", clase: "boton-numero btn-op", texto: "%" },
+    { id: "division", clase: "boton-numero btn-op", texto: "/" },
+    { id: "multiplicacion", clase: "boton-numero btn-op", texto: "X" },
+    { id: "resta", clase: "boton-numero btn-op", texto: "-" },
+    { id: "suma", clase: "boton-numero btn-op", texto: "+" },
+    { id: "igual", clase: "boton-numero", texto: "=" },
+    { id: "masmenos", clase: "boton-numero", texto: "+/-" },
+];
 
-const numero2 = nuevoElemento("button", "numero2", "numero2 boton-numero", "2");
-teclado.appendChild(numero2);
-
-const numero3 = nuevoElemento("button", "numero3", "numero3 boton-numero", "3");
-teclado.appendChild(numero3);
-
-const numero4 = nuevoElemento("button", "numero4", "numero4 boton-numero", "4");
-teclado.appendChild(numero4);
-
-const numero5 = nuevoElemento("button", "numero5", "numero5 boton-numero", "5");
-teclado.appendChild(numero5);
-
-const numero6 = nuevoElemento("button", "numero6", "numero6 boton-numero", "6");
-teclado.appendChild(numero6);
-
-const numero7 = nuevoElemento("button", "numero7", "numero7 boton-numero", "7");
-teclado.appendChild(numero7);
-
-const numero8 = nuevoElemento("button", "numero8", "numero8 boton-numero", "8");
-teclado.appendChild(numero8);
-
-const numero9 = nuevoElemento("button", "numero9", "numero9 boton-numero", "9");
-teclado.appendChild(numero9);
-
-const punto = nuevoElemento("button", "punto", "punto boton-numero", ".");
-teclado.appendChild(punto);
-
-const c = nuevoElemento("button", "c", "c boton-numero btn-op", "C");
-teclado.appendChild(c);
-
-const parentecis = nuevoElemento("button", "parentecis", "parentecis boton-numero btn-op", "( )");
-teclado.appendChild(parentecis);
-
-const porcentaje = nuevoElemento("button", "porcentaje", "porcentaje boton-numero btn-op", "%");
-teclado.appendChild(porcentaje);
-
-const division = nuevoElemento("button", "division", "division boton-numero btn-op", "/");
-teclado.appendChild(division);
-
-const multiplicacion = nuevoElemento("button", "multiplicacion", "multiplicacion boton-numero btn-op", "X");
-teclado.appendChild(multiplicacion);
-
-const resta = nuevoElemento("button", "resta", "resta boton-numero btn-op", "-");
-teclado.appendChild(resta);
-
-const suma = nuevoElemento("button", "suma", "suma boton-numero btn-op", "+");
-teclado.appendChild(suma);
-
-const igual = nuevoElemento("button", "igual", "igual boton-numero", "=");
-teclado.appendChild(igual);
-
-const masmenos = nuevoElemento("button", "masmenos", "masmenos boton-numero", "+/-");
-teclado.appendChild(masmenos);
+botones.forEach(({ id, clase, texto }) => {
+    const boton = nuevoElemento("button", `${id}`, `${clase}`, `${texto}`);
+    teclado.appendChild(boton);
+    asignarEventoBoton(boton);
+});
 
 container.appendChild(calculadora);
 
@@ -146,32 +116,12 @@ function nuevoElemento(elemento, id = "", clase = "", contenido = "") {
 
 // Logica
 let acumulado = [];
-let formarOperacion = "";
+let operacionFormada = "";
 
-clickTeclado(numero0);
-clickTeclado(numero1);
-clickTeclado(numero2);
-clickTeclado(numero3);
-clickTeclado(numero4);
-clickTeclado(numero5);
-clickTeclado(numero6);
-clickTeclado(numero7);
-clickTeclado(numero8);
-clickTeclado(numero9);
-clickTeclado(parentecis);
-clickTeclado(porcentaje);
-clickTeclado(division);
-clickTeclado(multiplicacion);
-clickTeclado(resta);
-clickTeclado(suma);
-clickTeclado(masmenos);
-clickTeclado(punto);
-clickTeclado(igual);
-clickTeclado(c);
-clickTeclado(borrar);
+asignarEventoBoton(borrar);
 
 
-function clickTeclado(elemento) {
+function asignarEventoBoton(elemento) {
     const elementosNoOperables =
         elemento.id === "c"
         || elemento.id === "suma"
@@ -228,8 +178,8 @@ function clickTeclado(elemento) {
         if (elemento.id === "borrar") {
             //code
             acumulado.pop();
-            formarOperacion = acumulado.join();
-            operaciones.textContent = formarOperacion;
+            operacionFormada = acumulado.join();
+            operaciones.textContent = operacionFormada;
         }
 
         if (!elementosNoOperables) {
@@ -266,8 +216,8 @@ function clickTeclado(elemento) {
 
         // 
 
-        formarOperacion = acumulado.join("");
-        operaciones.textContent = formarOperacion;
+        operacionFormada = acumulado.join("");
+        operaciones.textContent = operacionFormada;
         muestraResultado();
 
 
@@ -276,11 +226,14 @@ function clickTeclado(elemento) {
             limpiarDisplay();
 
         if (elemento.id === "igual") {
-            acumulado = [];
-            const resultArray = resultado.textContent.split("");
-            acumulado.push(...resultArray);
-            formarOperacion = acumulado.join("");
-            operaciones.textContent = formarOperacion;
+            try {
+                let resultadoEval = math.evaluate(acumulado.join(""));
+                resultado.textContent = resultadoEval;
+                acumulado = [resultadoEval.toString()];
+                operaciones.textContent = resultadoEval;
+            } catch (e) {
+                resultado.textContent = "Error";
+            }
         }
 
     });
@@ -293,14 +246,12 @@ function limpiarDisplay() {
 }
 
 function muestraResultado() {
-    let result = math.evaluate(acumulado.join(""));
-    resultado.textContent = result;
-}
-
-// Filtra el último elemento de un array que cumpla la condición
-function findLast(array, callback) {
-    const reversedArray = array.slice().reverse(); // Crea una copia para no modificar el original
-    const found = reversedArray.find(callback);
-    return found;
+    try {
+        let result = math.evaluate(acumulado.join(""));
+        resultado.textContent = result;
+    } catch (error) {
+        resultado.textContent = "";
+        console.warn("Expresión inválida", error);
+    }
 }
 

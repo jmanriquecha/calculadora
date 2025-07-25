@@ -126,93 +126,93 @@ header h1 {
     height: 70%;
 }
 
-.numero0 {
+#numero0 {
     grid-area: numero0;
 }
 
-.numero1 {
+#numero1 {
     grid-area: numero1;
 }
 
-.numero2 {
+#numero2 {
     grid-area: numero2;
 }
 
-.numero3 {
+#numero3 {
     grid-area: numero3;
 }
 
-.numero4 {
+#numero4 {
     grid-area: numero4;
 }
 
-.numero5 {
+#numero5 {
     grid-area: numero5;
 }
 
-.numero6 {
+#numero6 {
     grid-area: numero6;
 }
 
-.numero7 {
+#numero7 {
     grid-area: numero7;
 }
 
-.numero8 {
+#numero8 {
     grid-area: numero8;
 }
 
-.numero9 {
+#numero9 {
     grid-area: numero9;
 }
 
-.punto {
+#punto {
     grid-area: punto;
 }
 
-.c {
+#c {
     grid-area: c;
     color: #d11d1d !important;
 }
 
-.parentecis {
+#parentecis {
     grid-area: parentecis;
 }
 
-.porcentaje {
+#porcentaje {
     grid-area: porcentaje;
 }
 
-.division {
+#division {
     grid-area: division;
 }
 
-rgb(0, 128, 0) .porcentaje {
+#porcentaje {
     grid-area: porcentaje;
 }
 
-.multiplicacion {
+#multiplicacion {
     grid-area: multiplicacion;
 }
 
-.resta {
+#resta {
     grid-area: resta;
 }
 
-.suma {
+#suma {
     grid-area: suma;
 }
 
-.igual {
+#igual {
     grid-area: igual;
     background-color: rgb(0, 128, 0) !important;
 }
 
-.igual:active {
+#igual:active {
     background-color: rgb(4, 156, 4) !important;
 }
 
-.masmenos {
+#masmenos {
     grid-area: masmenos;
 }
 
