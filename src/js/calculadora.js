@@ -182,6 +182,7 @@ function clickTeclado(elemento) {
         || elemento.id === "masmenos"
         || elemento.id === "parentecis"
         || elemento.id === "igual"
+        || elemento.id === "punto"
         || elemento.id === "borrar";
 
     // Acciones 
@@ -190,7 +191,7 @@ function clickTeclado(elemento) {
         if (operaciones.textContent === "") {
             // Si el div.operaciones esta vacío y se digita . se agregara 0.
             if (elemento.id === "punto") {
-                acumulado.push(0 + '.');
+                acumulado.push(0, ".")
                 operaciones.textContent = acumulado;
             }
 
@@ -202,11 +203,26 @@ function clickTeclado(elemento) {
             ) {
                 console.warn("El formato usado no es válido");
             }
+        } else {
+            if (elemento.id === "punto") {
+                acumulado.push(".");
+            }
         }
 
         if (elemento.id === "parentecis") {
-            acumulado.push("(");
-            operaciones.textContent = acumulado;
+
+            if (operaciones.textContent.trim().length === 0) {
+                acumulado.push("(");
+            } else {
+                const parentecisAbierto = acumulado.filter(elemen => elemen === "(").length;
+                const parentecisCerrado = acumulado.filter(elemen => elemen === ")").length;
+
+                if (parentecisCerrado < parentecisAbierto) {
+                    acumulado.push(")");
+                } else {
+                    acumulado.push("(");
+                }
+            }
         }
 
         if (elemento.id === "borrar") {
@@ -279,5 +295,12 @@ function limpiarDisplay() {
 function muestraResultado() {
     let result = math.evaluate(acumulado.join(""));
     resultado.textContent = result;
+}
+
+// Filtra el último elemento de un array que cumpla la condición
+function findLast(array, callback) {
+    const reversedArray = array.slice().reverse(); // Crea una copia para no modificar el original
+    const found = reversedArray.find(callback);
+    return found;
 }
 
