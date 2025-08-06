@@ -83,6 +83,10 @@ gh-pages -d src
 
 ---
 
+[![Demo en YouTube](https://img.youtube.com/vi/sO3h1nv435o/0.jpg)](https://www.youtube.com/watch?v=sO3h1nv435o)
+
+---
+
 ## 🧠 Aprendizajes aplicados
 
 - Manipulación avanzada del DOM
