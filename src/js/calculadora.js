@@ -120,6 +120,7 @@ let operacionFormada = "";
 
 asignarEventoBoton(borrar);
 
+entradaPorTeclado();
 
 function asignarEventoBoton(elemento) {
     const elementosNoOperables =
@@ -138,26 +139,7 @@ function asignarEventoBoton(elemento) {
     // Acciones 
     elemento.addEventListener("click", function () {
         // Se valida elementos 
-        if (operaciones.textContent === "") {
-            // Si el div.operaciones esta vacío y se digita . se agregara 0.
-            if (elemento.id === "punto") {
-                acumulado.push(0, ".")
-                operaciones.textContent = acumulado;
-            }
-
-            if (elemento.id === "suma" ||
-                elemento.id === "resta" ||
-                elemento.id === "multiplicacion" ||
-                elemento.id === "division" ||
-                elemento.id === "porcentaje"
-            ) {
-                console.warn("El formato usado no es válido");
-            }
-        } else {
-            if (elemento.id === "punto") {
-                acumulado.push(".");
-            }
-        }
+        validaSiDisplayOperacionesEsVacio(elemento.id);
 
         if (elemento.id === "parentecis") {
 
@@ -177,9 +159,7 @@ function asignarEventoBoton(elemento) {
 
         if (elemento.id === "borrar") {
             //code
-            acumulado.pop();
-            operacionFormada = acumulado.join();
-            operaciones.textContent = operacionFormada;
+            borrarUltimoCaracter();
         }
 
         if (!elementosNoOperables) {
@@ -216,25 +196,16 @@ function asignarEventoBoton(elemento) {
 
         // 
 
-        operacionFormada = acumulado.join("");
-        operaciones.textContent = operacionFormada;
-        muestraResultado();
+        muestraOperacionFormadaYResultado();
 
 
         // Limpiar display
         if (elemento.id === "c")
             limpiarDisplay();
 
-        if (elemento.id === "igual") {
-            try {
-                let resultadoEval = math.evaluate(acumulado.join(""));
-                resultado.textContent = resultadoEval;
-                acumulado = [resultadoEval.toString()];
-                operaciones.textContent = resultadoEval;
-            } catch (e) {
-                resultado.textContent = "Error";
-            }
-        }
+        if (elemento.id === "igual")
+            esIgual();
+
 
     });
 }
@@ -253,5 +224,124 @@ function muestraResultado() {
         resultado.textContent = "";
         console.warn("Expresión inválida", error);
     }
+}
+
+function borrarUltimoCaracter() {
+    acumulado.pop();
+    operacionFormada = acumulado.join("");
+    operaciones.textContent = operacionFormada;
+}
+
+function muestraOperacionFormadaYResultado() {
+    operacionFormada = acumulado.join("");
+    operaciones.textContent = operacionFormada;
+    muestraResultado();
+}
+
+function esIgual() {
+    try {
+        let resultadoEval = math.evaluate(acumulado.join(""));
+        resultado.textContent = resultadoEval;
+        acumulado = [resultadoEval.toString()];
+        operaciones.textContent = resultadoEval;
+    } catch (e) {
+        resultado.textContent = "Error";
+    }
+}
+
+function validaSiDisplayOperacionesEsVacio(elemento) {
+    const esPunto = elemento === "punto" || elemento === ".";
+    if (operaciones.textContent === "") {
+        // Si el div.operaciones esta vacío y se digita . se agregara 0.
+        if (esPunto) {
+            acumulado.push(0, ".")
+            operaciones.textContent = acumulado;
+        }
+
+    } else {
+        if (esPunto) {
+            acumulado.push(".");
+        }
+    }
+}
+
+// Nueva Funcionalidad que permite la entrada por teclado
+
+function entradaPorTeclado() {
+    addEventListener("keydown", function (e) {
+        // Teclas especiales
+        if (e.key === "Backspace") {
+            borrarUltimoCaracter();
+            muestraOperacionFormadaYResultado();
+            return;
+        }
+        if (e.key === "Escape") {
+            limpiarDisplay();
+            return;
+        }
+        if (e.key === "Enter") {
+            esIgual();
+            return;
+        }
+
+        // Validar y procesar teclas numéricas u operadores
+        const dato = validaEntradaTeclado(e);
+        if (dato) {
+            acumulado.push(dato);
+            muestraOperacionFormadaYResultado();
+        }
+    });
+}
+
+agregaYQuitaEstilosActive();
+
+
+function validaEntradaTeclado(event) {
+    const teclasPermitidas = "0123456789.+-*/%()Enter";
+    if (teclasPermitidas.includes(event.key)) {
+        return event.key;
+    }
+}
+
+function agregaYQuitaEstilosActive() {
+    const keyMap = {
+        "0": numero0,
+        "1": numero1,
+        "2": numero2,
+        "3": numero3,
+        "4": numero4,
+        "5": numero5,
+        "6": numero6,
+        "7": numero7,
+        "8": numero8,
+        "9": numero9,
+        ".": punto,
+        "+": suma,
+        "-": resta,
+        "*": multiplicacion,
+        "/": division,
+        "%": porcentaje,
+        "(": parentecis,
+        ")": parentecis,
+        "Escape": c
+    };
+
+    addEventListener("keydown", function (e) {
+        let boton = keyMap[e.key] || null;
+
+        if (e.key === "Enter") {
+            igual.classList.add("igual-active");
+        } else if (e.key === "Backspace") {
+            borrar.classList.add("borrar-active");
+        } else if (boton) {
+            boton.classList.add("boton-numero-active");
+        }
+
+        setTimeout(() => {
+            igual.classList.remove("igual-active");
+            borrar.classList.remove("borrar-active");
+            if (boton) boton.classList.remove("boton-numero-active");
+        }, 150);
+    });
 }
 
