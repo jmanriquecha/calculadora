@@ -98,6 +98,10 @@ header h1 {
     background-color: rgb(0, 128, 0);
 }
 
+.borrar-active {
+    background-color: rgb(0, 128, 0);
+}
+
 .del {
     display: inline-block;
     background-image: url("./../img/borrar.png");
@@ -205,11 +209,15 @@ header h1 {
 
 #igual {
     grid-area: igual;
-    background-color: rgb(0, 128, 0) !important;
+    background-color: rgb(0, 128, 0);
 }
 
-#igual:active {
-    background-color: rgb(4, 156, 4) !important;
+#igual:hover {
+    background-color: rgb(5, 189, 5) !important;
+}
+
+.igual-active {
+    background-color: rgb(5, 189, 5) !important;
 }
 
 #masmenos {
@@ -235,14 +243,20 @@ header h1 {
     font-weight: bold;
 }
 
-.boton-numero:active {
+.boton-numero:hover {
     font-size: 15px;
     background-color: #ccc !important;
     color: #111;
 }
 
+.boton-numero-active {
+    font-size: 15px !important;
+    background-color: #ccc !important;
+    color: #111 !important;
+}
+
 .btn-op {
-    background-color: #333333 !important;
+    background-color: #333333;
     color: rgb(113, 235, 13);
 }
 
